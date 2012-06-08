@@ -1,5 +1,2 @@
-/pkg
-/doc/api
-/Gemfile.lock
 tmp/*
 public/music/*
