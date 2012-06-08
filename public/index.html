@@ -1,0 +1,148 @@
+<!doctype html>
+
+<!--[if lt IE 7]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if IE 9]>    <html lang="en" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+
+    <title>SpotiBone HTML5 JS Music Player</title>
+    <meta name="author" content="Jonathan Matthey <mattheyj@gmail.com>">
+
+    <link rel="stylesheet" href="style/style.css" media="screen, projection">
+
+    <script src="js/vendor/modernizr-1.6.min.js"></script>
+    <script src="js/vendor/jquery-1.5.1.min.js"></script>
+    <script src="js/vendor/underscore.js"></script>
+    <script src="js/vendor/backbone.js"></script>
+    <script src="js/Tunes.js"></script>
+
+    <script type="text/template" id="library-template">
+      <h1>Music Library</h1>
+      <ul class="albums"></ul>
+    </script>
+
+    <script type="text/template" id="search-template">
+      <h1>Search Music</h1>
+      <form>
+        <input name="q" type="text" id="q" />
+        <input type="submit" id="search-btn" value="Search"/>
+      </form>
+      <ul class="tracks"></ul>
+    </script>
+
+    <script type="text/template" id="playlist-template">
+      <h1>Playlists</h1>
+      <nav>
+        <button class="control play">Play</button>
+        <button class="control pause">Pause</button>
+        <button class="control prev">Prev</button>
+        <button class="control next">Next</button>
+      </nav>
+      <button class="">New Playlist</button>
+      <ul class="albums">
+      </ul>
+    </script>
+
+    <script type="text/template" id="track-template">
+      <li>
+        [a] <%= name %> -  <%= artist %>
+      </li>
+    </script>
+
+    <script type="text/template" id="album-template">
+      <button class="queue add"><img src="/images/add.png"></button>
+      <button class="queue remove"><img src="/images/remove.png"></button>
+      <span class="album-title"><%= title %></span>&nbsp;&nbsp;
+      <span class="artist-name"><%= artist %></span>
+      <ol class="tracks">
+        <% _.each(tracks, function(track) { %>
+          <li><%= track.title %></li>
+        <% }); %>
+      </ol>
+    </script>
+
+    <script type="application/javascript">
+      jQuery(function() {
+        window.library.fetch();
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="wrapper">
+      <img src="images/backbone-plus-spotify.jpg" title="backbone-plus-spotify"/>
+      <div id="container">
+      </div>
+
+      <div style="font-size:0.8em">
+      <br/><br/><br/>
+<br/>The goal of this test is to create a semi-­‐functional web-­‐based Music Player interface using HTML5 and JavaScript.
+<br/>
+<br/>Your interface will need to serve three purposes:
+<br/>1. Perform track/artist/album searches . We recommend using the Spotify Metadata API to facilitate these searches: (http://developer.spotify.com/en/)
+<br/>
+<br/>2. Maintain playlists 
+<br/>a. CRUD (Create, Remove, Update, Delete) 
+<br/>b. Add/remove tracks 
+<br/>Maintain a current queue of songs 
+<br/>
+<br/>3. Player controls 
+<br/>a. Play -­‐ Hint: “Play” songs using setTimeout for the song length 
+<br/>b. Stop 
+<br/>c. Rewind 
+<br/>d. Fast forward
+<br/>
+<br/>This code should be written in HTML5 and Object-­Oriented JavaScript.
+<br/>
+<br/>
+<br/>
+<br/>-------------
+<br/>
+<br/>PSEUDOCODE
+<br/>
+<br/>1. text input - submit button - fires off to api, results back in container.
+<br/>
+<br/>2. backbone Playlist Model
+<br/>
+<br/>build view for that playlist
+<br/>
+<br/>methods - add / remove / update / delete playlists ? buttons for each
+<br/>
+<br/>"Hurrican - dylan "  [ + add to playlist ] [ play ]
+<br/>
+<br/>
+<br/>Playlists
+<br/>
+<br/>- 1. playlist A [ edit ][ - ]
+<br/>    track 1 [ play ][ delete ]
+<br/>    track 2 [ play ][ delete ]
+<br/>
+<br/>- 2. playlist B [ - ][ play ]
+<br/>    track 1 [ - ][ play ]
+<br/>
+<br/>[_________] Add
+
+</div>
+    </div>
+
+
+<footer>
+    <a href="http://www.jonathanmatthey.com">Jonathan Matthey</a> hacked this together.  Using <a href="http://backbonejs.org/">backbone</a>.  All data and copyright belong to <a href="http://www.spotify.com">spotify.com</a>. Please don't sue.  Apologies for ruining your logo.
+</footer>
+<!-- 
+$.ajax({
+  type: 'GET',
+  url: 'http://ws.spotify.com/search/1/album?q=foo',
+  success: function(result, textStatus, xmlhttprequest){
+        console.log( $.parseXML(xmlhttprequest.responseText));
+    },
+  dataType: 'xml'
+});
+ -->
+
+</div>
+  </body>
+</html>

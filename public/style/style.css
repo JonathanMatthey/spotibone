@@ -1,0 +1,247 @@
+html, body {
+  height: 100%;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+}
+
+h1{
+    font-size:1.2em;
+
+}
+#container {
+  height: auto;
+  min-height: 100%;
+	position: relative;
+}
+
+.albums {
+    list-style: none;
+    padding: 0 2%;
+}
+
+.album {
+    list-style: none;
+    display: inline-block;
+    position: relative;
+    width: 80%;
+    margin: 0;
+    padding: 1em 2em;
+}
+
+.album .artist-name {
+}
+
+.album .tracks {
+    margin: 0;
+    padding: .5em 0 0 1.5em;
+}
+
+.album button.queue {
+    position: absolute;
+    left: 0;
+    width: 16px;
+    height: 16px;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
+.playlist {
+    position: absolute;
+    margin-left:63%;
+    width:30%;
+    padding: 0.2em 3%;
+    min-height: 100%;
+}
+
+nav {
+    width: 180px;
+    margin: auto;
+    padding: 0;
+}
+
+nav button.control {
+    text-indent: -9999px;
+    width: 55px;
+    height: 50px;
+    border: 0;
+    padding: 10px;
+    margin: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
+nav button.play {
+    background: url('/images/control_play.png') center no-repeat;
+}
+
+nav button.play:hover {
+    background: url('/images/control_play_hover.png') center no-repeat;
+}
+
+nav button.pause {
+    background: url('/images/control_pause.png') center no-repeat;
+}
+
+nav button.pause:hover {
+    background: url('/images/control_pause_hover.png') center no-repeat;
+}
+
+nav button.prev {
+    background: url('/images/control_start.png') center no-repeat;
+}
+
+nav button.prev:hover {
+    background: url('/images/control_start_hover.png') center no-repeat;
+}
+
+nav button.next {
+    background: url('/images/control_end.png') center no-repeat;
+}
+
+nav button.next:hover {
+    background: url('/images/control_end_hover.png') center no-repeat;
+}
+
+.playlist .album .queue.add {
+    display: none;
+}
+
+.playlist .album.current {
+}
+
+.playlist .album.current .tracks .current {
+}
+
+.search {
+    background-color:#373737;
+    width:60%;
+    padding: 0.1em 2%;
+    color:#ddd;
+}
+.library {
+    background-color:#373737;
+    width:60%;
+	padding: 0.1em 2%;
+    color:#ddd;
+}
+
+.library .album .queue.remove {
+    display: none;
+}
+
+.library .album .tracks {
+    display: none;
+}
+
+#wrapper{
+    margin:0 auto;
+    width:960px;
+}
+
+footer{
+
+    font-size: 0.7em;
+color: 
+#666;
+margin: 0 auto;
+width: 960px;
+text-align: center;
+padding: 10px 0 50px 0;
+
+}
+
+body {
+    font-family: "Helvetica Neue", "Helvetica", "Calibri", "sans"
+}
+
+.albums {
+}
+
+.album {
+    font-style: italic;
+}
+
+.album .artist-name {
+    font-style: normal;
+    font-weight: lighter;
+    color: #999;
+}
+
+.album button.queue {
+}
+
+.playlist {
+    color: #eee;
+    background-color: #474747;
+}
+
+.playlist button.control {
+}
+
+.playlist button.play {
+}
+
+.playlist button.play:hover {
+}
+
+.playlist button.pause {
+}
+
+.playlist button.pause:hover {
+}
+
+.playlist button.prev {
+}
+
+.playlist button.prev:hover {
+}
+
+.playlist button.next {
+}
+
+.playlist button.next:hover {
+}
+
+.playlist .album .queue.add {
+}
+
+.playlist .album.current {
+    background-color: #383838;
+}
+
+.playlist .album.current .tracks .current {
+    background-color: #995599;
+}
+
+.playlist .album .tracks li {
+    font-style: normal;
+    padding: .3em;
+}
+
+.library {
+}
+
+.library .album .queue.remove {
+}
+
+.library .album .tracks {
+}
+
+
+ul.tracks{
+    list-style-type: none;
+
+}
+
+
+ul.tracks li{
+    font-size: 0.8em;
+    padding:1px 0;
+
+}
