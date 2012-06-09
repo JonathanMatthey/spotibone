@@ -37,4 +37,4 @@ Run ( uses sinatra )
 
 Demo on heroku:
 
-	http://spotibone.herokuapp.com/
+	(http://spotibone.herokuapp.com/)
