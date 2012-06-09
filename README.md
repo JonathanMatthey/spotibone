@@ -1,6 +1,8 @@
 Backbone + Spotify = Backify... or Spotibone !
 ==============================================
 
+Demo on heroku: http://spotibone.herokuapp.com/
+
 PLEASE NOTE - Tracks only seems to play on GOOGLE CHROME.
 
 ***
@@ -35,6 +37,4 @@ Run ( uses sinatra )
     rake server
 
 
-Demo on heroku:
-
-http://spotibone.herokuapp.com/
+Demo on heroku: http://spotibone.herokuapp.com/
