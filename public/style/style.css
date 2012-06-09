@@ -12,9 +12,12 @@ h1{
 
 }
 #container {
-  height: auto;
-  min-height: 100%;
-	position: relative;
+    background-color: #373737;
+    float: left;
+    height: auto;
+    min-height: 100%;
+    position: relative;
+    width:960px;
 }
 
 .albums {
@@ -49,14 +52,6 @@ h1{
     margin: 0;
     background: transparent;
     cursor: pointer;
-}
-
-.playlist {
-    position: absolute;
-    margin-left:63%;
-    width:30%;
-    padding: 0.2em 3%;
-    min-height: 100%;
 }
 
 nav {
@@ -119,10 +114,11 @@ nav button.next:hover {
 }
 
 .search {
-    background-color:#373737;
-    width:60%;
+    background-color: #373737;
+    color: #DDDDDD;
+    float: left;
     padding: 0.1em 2%;
-    color:#ddd;
+    width: 515px;
 }
 .library {
     background-color:#373737;
@@ -177,8 +173,14 @@ body {
 }
 
 .playlist {
-    color: #eee;
+
     background-color: #474747;
+    color: #EEEEEE;
+    float: right;
+    min-height: 100%;
+    padding: 0.2em 3%;
+    width: 290px;
+
 }
 
 .playlist button.control {
@@ -244,4 +246,20 @@ ul.tracks li{
     font-size: 0.8em;
     padding:1px 0;
 
+}
+
+.add-to-playlist{
+    color:white;
+    font-weight:bold;
+    text-decoration:none;
+    margin-right:5px;
+    line-height:10px;
+}
+
+select.playlists{
+    display: none;
+}
+
+#new-playlist{
+    margin-top:20px;
 }

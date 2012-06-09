@@ -41,14 +41,19 @@
         <button class="control prev">Prev</button>
         <button class="control next">Next</button>
       </nav>
-      <button class="">New Playlist</button>
+      <button id="new-playlist" class="">New Playlist</button>
       <ul class="albums">
       </ul>
     </script>
 
     <script type="text/template" id="track-template">
       <li>
-        [a] <%= name %> -  <%= artist %>
+        <a href="#" class="add-to-playlist">+</a>
+        <select class="playlists">
+        </select> 
+        <span class="track-name"><%= name %></span>
+        - 
+        <span class="track-artist"><%= artist %></span>
       </li>
     </script>
 
@@ -79,11 +84,33 @@
 
       <div style="font-size:0.8em">
       <br/><br/><br/>
+      <br/>
+<br/>
+<br/> 1. get mp3s playing again
+<br/> 2. edit of playlist name
+<br/> 
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
 <br/>The goal of this test is to create a semi-­‐functional web-­‐based Music Player interface using HTML5 and JavaScript.
 <br/>
 <br/>Your interface will need to serve three purposes:
-<br/>1. Perform track/artist/album searches . We recommend using the Spotify Metadata API to facilitate these searches: (http://developer.spotify.com/en/)
-<br/>
+
+<p style="text-decoration:line-through">
+  1. Perform track/artist/album searches . We recommend using the Spotify Metadata API to facilitate these searches: (http://developer.spotify.com/en/)
+</p>
 <br/>2. Maintain playlists 
 <br/>a. CRUD (Create, Remove, Update, Delete) 
 <br/>b. Add/remove tracks 
@@ -104,7 +131,7 @@
 <br/>PSEUDOCODE
 <br/>
 <br/>1. text input - submit button - fires off to api, results back in container.
-<br/>
+
 <br/>2. backbone Playlist Model
 <br/>
 <br/>build view for that playlist

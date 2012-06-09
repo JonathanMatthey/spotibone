@@ -16,16 +16,12 @@
                 var artistName = $(this).children('artist').children('name').text();
                 parsed.push({ name: albumName, artist: artistName });
             });
-
-            console.log("parse");
-            console.log(parsed);
             return parsed;
         },
 
         fetch: function(options) {
             options || (options = {});
             options.dataType="xml";
-            console.log(options.params);
             this.url = this.baseUrl + options.params;
             Backbone.Collection.prototype.fetch.call(this, options);
         }
@@ -47,13 +43,18 @@
                 return this.get('tracks')[index].url;
             }
             return null;
+        },
+
+        addTrack: function(track){
+            this.get('tracks').push(track);
+            window.App.playlistView.render(); // TODO: THIS IS A HACK data change in this model should trigger render of view automatically
         }
 
     });
 
     window.Albums = Backbone.Collection.extend({
         model: Album
-        //,  url: "/albums"
+        ,  url: "/albums"
     });
 
     window.Playlist = Albums.extend({
@@ -65,6 +66,8 @@
         isLastAlbum: function(index) {
             return (index == (this.models.length - 1))
         }
+
+
 
     });
 
@@ -187,26 +190,25 @@
     });
 
     window.search = new SearchResults();
-    window.library = new Albums([{
-        "title": "Where the Earth Meets the Sky",
-        "artist": "Tom Heasley",
-        "tracks": [{
-            "title": "Ground Zero",
-            "url": "/music/blue.mp3"
-        },
-        {
-            "title": "Western Sky",
-            "url": "/music/jazz.mp3"
-        },
-        {
-            "title": "Monterey Bay",
-            "url": "/music/minimalish.mp3"
-        },
-        {
-            "title": "Where the Earth Meets the Sky",
-            "url": "/music/slower.mp3"
-        }]
-    }]);
+    // window.library = new Albums([{
+    //     "title": "Where the Earth Meets the Sky",
+    //     "artist": "Tom Heasley",
+    //     "tracks": [{
+    //         "title": "Ground Zero",
+    //         "url": "/music/blue.mp3"
+    //     },
+    //     {
+    //         "title": "Western Sky",
+    //         "url": "/music/jazz.mp3"
+    //     },
+    //     {
+    //         "title": "Monterey Bay",
+    //         "url": "/music/nore.mp3"
+    //     }]
+    // }]);
+
+
+
     
     window.player = new Player();
 
@@ -224,6 +226,37 @@
 
             render: function() {
                 $(this.el).html(this.template(this.model.toJSON()));
+
+                $addBtn = this.$(".add-to-playlist");
+                
+                $addBtn.click(function(event){
+                    event.preventDefault();
+
+                    $playlistsSelect = $(this).parent().children('select.playlists');
+                    var track_title = $(this).parent().children('.track-name').html() + " - " + $(this).parent().children('.track-artist').html()
+                    $playlistsSelect.html("<option>add to:</option>");
+                    $.each(window.App.playlistView.collection.pluck('title'), function(key, value) {
+                        $playlistsSelect.append($("<option></option>")
+                        .attr("value",key)
+                        .text(value)); 
+                    });
+
+                    $playlistsSelect.change(function() {
+                       
+                        // # set url to one of possible 3 files on the server
+                        var track_url = ["/music/blue.mp3","/music/jazz.mp3","/music/minimalish.mp3","/music/slower.mp3"][(function(){return  Math.floor(Math.random()*3);})()] ;
+
+
+                        window.App.playlistView.collection.at($(this).val()).addTrack({
+                            "title": track_title,
+                            "url": track_url
+                        });
+                        $playlistsSelect.hide();
+                    });
+
+                    $playlistsSelect.show();
+
+                });
                 return this;
             }
         });
@@ -245,7 +278,10 @@
 
         window.PlaylistAlbumView = AlbumView.extend({
             events: {
-                'click .queue.remove': 'removeFromPlaylist'
+                'click .queue.remove': 'removeFromPlaylist',
+                'click .album-title': 'editAlbumTitle',
+                
+
             },
 
             initialize: function() {
@@ -283,6 +319,11 @@
                 this.updateState();
             },
 
+            editAlbumTitle:function(){
+                console.log('hi');
+
+            },
+
             removeFromPlaylist: function() {
                 this.options.playlist.remove(this.model);
                 this.player.reset();
@@ -308,7 +349,8 @@
                 'click .play': 'play',
                 'click .pause': 'pause',
                 'click .next': 'nextTrack',
-                'click .prev': 'prevTrack'
+                'click .prev': 'prevTrack',
+                'click #new-playlist': 'newPlaylist'
             },
 
             initialize: function() {
@@ -320,14 +362,24 @@
                 this.collection.bind('reset', this.render);
                 this.collection.bind('add', this.renderAlbum);
 
-                // TODO: May need to bind to currentAlbumIndex too
                 this.player = this.options.player;
                 this.player.bind('change:state', this.updateState);
                 this.player.bind('change:currentTrackIndex', this.updateTrack);
                 this.createAudio();
 
-                this.library = this.options.library;
-                this.library.bind('select', this.queueAlbum);
+                // this.library = this.options.library;
+                // this.library.bind('select', this.queueAlbum);
+
+                track_queue = new window.Album({
+                    "title": "Current Queue",
+                    "artist": "",
+                    "tracks": [{
+                        "title": "Ground Zero",
+                        "url": "/music/jazz.mp3"
+                    }]
+                });
+
+                this.collection.add(track_queue);
             },
 
             createAudio: function() {
@@ -339,6 +391,7 @@
                 this.collection.each(this.renderAlbum);
 
                 this.updateState();
+
                 return this;
             },
 
@@ -349,6 +402,7 @@
                     playlist: this.collection
                 });
                 this.$("ul").append(view.render().el);
+
             },
 
             updateState: function() {
@@ -364,6 +418,14 @@
                 } else {
                     this.audio.pause();
                 }
+            },
+
+            newPlaylist: function(){
+                this.collection.add({
+                    "title": "New Playlist",
+                    "artist": "",
+                    "tracks": []
+                    });
             },
 
             queueAlbum: function(album) {
@@ -416,42 +478,42 @@
                 $searchBtn = this.$("#search-btn");
                 $searchBtn.click(function(event){
                     event.preventDefault();
-                    // collection.url += 'foo'; 
-
                     collection.fetch({params:$searchForm.serialize()});
                 });
 
                 return this;
             }
+
+            
         });
 
-        window.LibraryView = Backbone.View.extend({
-            tagName: 'section',
-            className: 'library',
-            template: _.template($('#library-template').html()),
+        // window.LibraryView = Backbone.View.extend({
+        //     tagName: 'section',
+        //     className: 'library',
+        //     template: _.template($('#library-template').html()),
 
-            initialize: function() {
-                _.bindAll(this, 'render');
-                this.collection.bind('reset', this.render);
-            },
+        //     initialize: function() {
+        //         _.bindAll(this, 'render');
+        //         this.collection.bind('reset', this.render);
+        //     },
 
-            render: function() {
-                var $albums,
-                collection = this.collection;
+        //     render: function() {
+        //         var $albums,
+        //         collection = this.collection;
 
-                $(this.el).html(this.template({}));
-                $albums = this.$(".albums");
-                this.collection.each(function(album) {
-                    var view = new LibraryAlbumView({
-                        model: album,
-                        collection: collection
-                    });
-                    $albums.append(view.render().el);
-                });
+        //         $(this.el).html(this.template({}));
+        //         $albums = this.$(".albums");
+        //         this.collection.each(function(album) {
+        //             var view = new LibraryAlbumView({
+        //                 model: album,
+        //                 collection: collection
+        //             });
+        //             $albums.append(view.render().el);
+        //         });
 
-                return this;
-            }
-        });
+        //         return this;
+        //     }
+        // });
 
         window.MusicPlayer = Backbone.Router.extend({
             routes: {
@@ -467,13 +529,14 @@
                     search: window.search
                 });
 
-                this.libraryView = new LibraryView({
-                    collection: window.library
-                });
+                // this.libraryView = new LibraryView({
+                //     collection: window.library
+                // });
 
                 this.searchView = new SearchView({
                     collection: window.search
                 });
+
 
             },
 
@@ -481,7 +544,7 @@
                 $('#container').empty();
                 $("#container").append(this.playlistView.render().el);
                 $("#container").append(this.searchView.render().el);
-                $("#container").append(this.libraryView.render().el);
+                // $("#container").append(this.libraryView.render().el);
             },
 
             blank: function() {
@@ -490,11 +553,17 @@
             }
         });
 
+
+
+        // window.LibraryView.collection.queueAlbum(track_queue);
+
         // Kick off the application
         window.App = new MusicPlayer();
         Backbone.history.start({
             pushState: true
         });
     });
+
+
 
 })(jQuery);
