@@ -60,7 +60,7 @@
     <script type="text/template" id="album-template">
       <button class="queue add"><img src="/images/add.png"></button>
       <button class="queue remove"><img src="/images/remove.png"></button>
-      <span class="album-title"><%= title %></span>&nbsp;&nbsp;
+      <span class="album-title"><%= title %></span><input class="album-title-input" type="text"/>&nbsp;&nbsp;
       <span class="artist-name"><%= artist %></span>
       <ol class="tracks">
         <% _.each(tracks, function(track) { %>
@@ -81,78 +81,6 @@
       <img src="images/backbone-plus-spotify.jpg" title="backbone-plus-spotify"/>
       <div id="container">
       </div>
-
-      <div style="font-size:0.8em">
-      <br/><br/><br/>
-      <br/>
-<br/>
-<br/> 1. get mp3s playing again
-<br/> 2. edit of playlist name
-<br/> 
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>The goal of this test is to create a semi-­‐functional web-­‐based Music Player interface using HTML5 and JavaScript.
-<br/>
-<br/>Your interface will need to serve three purposes:
-
-<p style="text-decoration:line-through">
-  1. Perform track/artist/album searches . We recommend using the Spotify Metadata API to facilitate these searches: (http://developer.spotify.com/en/)
-</p>
-<br/>2. Maintain playlists 
-<br/>a. CRUD (Create, Remove, Update, Delete) 
-<br/>b. Add/remove tracks 
-<br/>Maintain a current queue of songs 
-<br/>
-<br/>3. Player controls 
-<br/>a. Play -­‐ Hint: “Play” songs using setTimeout for the song length 
-<br/>b. Stop 
-<br/>c. Rewind 
-<br/>d. Fast forward
-<br/>
-<br/>This code should be written in HTML5 and Object-­Oriented JavaScript.
-<br/>
-<br/>
-<br/>
-<br/>-------------
-<br/>
-<br/>PSEUDOCODE
-<br/>
-<br/>1. text input - submit button - fires off to api, results back in container.
-
-<br/>2. backbone Playlist Model
-<br/>
-<br/>build view for that playlist
-<br/>
-<br/>methods - add / remove / update / delete playlists ? buttons for each
-<br/>
-<br/>"Hurrican - dylan "  [ + add to playlist ] [ play ]
-<br/>
-<br/>
-<br/>Playlists
-<br/>
-<br/>- 1. playlist A [ edit ][ - ]
-<br/>    track 1 [ play ][ delete ]
-<br/>    track 2 [ play ][ delete ]
-<br/>
-<br/>- 2. playlist B [ - ][ play ]
-<br/>    track 1 [ - ][ play ]
-<br/>
-<br/>[_________] Add
-
-</div>
     </div>
 
 

@@ -279,7 +279,7 @@
         window.PlaylistAlbumView = AlbumView.extend({
             events: {
                 'click .queue.remove': 'removeFromPlaylist',
-                'click .album-title': 'editAlbumTitle',
+                'click span.album-title': 'editAlbumTitle',
                 
 
             },
@@ -319,9 +319,26 @@
                 this.updateState();
             },
 
-            editAlbumTitle:function(){
-                console.log('hi');
+            editAlbumTitle:function(ev){
+                $spanAlbumTitle = $(ev.target);
+                $spanAlbumTitle.hide();
+                $inputAlbumTitle = $(ev.target).parent().children('input.album-title-input');
+                // console.log($inputAlbumTitle);
+                $inputAlbumTitle.val($(ev.target).html());
+                $inputAlbumTitle.show();
 
+                var playlistClicked = this.model;
+
+                $inputAlbumTitle.keypress(function(e){
+                  if(e.which == 13){
+                    $inputAlbumTitle.hide();
+                    $(this).parent().children('span.album-title').html($(this).val());
+                    $(this).parent().children('span.album-title').show();
+                    playlistClicked.set({'title':$(this).val()});
+                    $('select.playlists').hide();
+
+                  }
+                });
             },
 
             removeFromPlaylist: function() {
@@ -374,7 +391,7 @@
                     "title": "Current Queue",
                     "artist": "",
                     "tracks": [{
-                        "title": "Ground Zero",
+                        "title": "Hey Joe - Jimmy Hendrix",
                         "url": "/music/jazz.mp3"
                     }]
                 });
@@ -426,6 +443,7 @@
                     "artist": "",
                     "tracks": []
                     });
+                $('select.playlists').hide();
             },
 
             queueAlbum: function(album) {
@@ -484,7 +502,7 @@
                 return this;
             }
 
-            
+
         });
 
         // window.LibraryView = Backbone.View.extend({
